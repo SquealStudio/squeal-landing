@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Squeal Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Russo+One&family=Share+Tech+Mono&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#team">Team</a>
+  <a href="#manifesto">Manifesto</a>
+</div>
+
+<nav>
+  <div class="nav-logo">SQ<span>UE</span>AL</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#manifesto">Manifesto</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+
+  <div class="floating-pixel" style="width:8px;height:8px;background:#7c3aed;left:10%;top:30%;animation-delay:0s;animation-duration:7s"></div>
+  <div class="floating-pixel" style="width:5px;height:5px;background:#d4f542;left:85%;top:20%;animation-delay:1s;animation-duration:5s"></div>
+  <div class="floating-pixel" style="width:12px;height:12px;background:#60a5fa;left:70%;top:70%;animation-delay:2s;animation-duration:8s"></div>
+  <div class="floating-pixel" style="width:6px;height:6px;background:#ef4444;left:20%;top:75%;animation-delay:0.5s;animation-duration:6s"></div>
+  <div class="floating-pixel" style="width:9px;height:9px;background:#a78bfa;left:45%;top:15%;animation-delay:3s;animation-duration:9s"></div>
+
+  <span class="badge">▸ Indie Studio · Founded in Russia ◂</span>
+
+  <h1 class="hero-title">
+    <span class="line1">SQUEAL</span>
+    <span class="line2">STUDIO</span>
+  </h1>
+
+  <p class="hero-sub">
+    A handful of misfits making games and mods. No budget, no managers, no investors. Just heart, bugs, and a few questionable ideas.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">Our Projects</a>
+    <a href="#team" class="btn btn-secondary">Who We Are</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span>SCROLL</span>
+    <div class="line"></div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <span class="section-tag">// the studio</span>
+        <h2 class="section-title">We're not a <span style="color:var(--accent2)">corporation</span></h2>
+        <p>Squeal Studio is a small team of people with an unhealthy love for video games. We don't chase funding, pitch at conferences, or build roadmaps in Notion.</p>
+        <p>We just sit down and make things. Sometimes it turns out great. Sometimes it's a mess. It's always honest work.</p>
+        <p>Current projects: <strong style="color:#60a5fa">Stardanie</strong> for Terraria, and our own horror game <strong style="color:#ef4444">NeShumi</strong>. Both are at different stages of development.</p>
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-num">2</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">∞</span>
+            <span class="stat-label">Ideas</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">0</span>
+            <span class="stat-label">Investors</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-visual reveal">
+        <div class="glow-ring"></div>
+        <div class="glow-ring2"></div>
+        <div class="logo-big">SQ<br><span>UE</span><br>AL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">// projects</span>
+      <h2 class="section-title">What we're <span style="color:var(--accent1)">building</span></h2>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card card-stardanie reveal">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="pixel-deco" style="filter:drop-shadow(0 0 20px #60a5fa)"><i data-lucide="swords"></i></div>
+          <span class="card-platform">Terraria Mod</span>
+          <h3 class="card-title">Stardanie</h3>
+          <p class="card-sub">— The expansion Terraria deserves</p>
+          <p class="card-desc">
+            A massive mod with new bosses, new ores, mechanics, and biomes.
+          </p>
+          <ul class="features-list">
+            <li><span class="feat-icon">◆</span> Unique bosses with multi-phase fights</li>
+            <li><span class="feat-icon">◆</span> New ores and progression</li>
+            <li><span class="feat-icon">◆</span> Hundreds of weapons, armor pieces, and accessories</li>
+            <li><span class="feat-icon">◆</span> Custom biomes with their own ecosystems</li>
+            <li><span class="feat-icon">◆</span> Deep lore and new mechanics</li>
+          </ul>
+          <span class="wip-badge"><span class="dot"></span> In Development</span>
+        </div>
+      </div>
+
+      <div class="project-card card-neshumi reveal" style="transition-delay:0.1s">
+        <div class="card-accent"></div>
+        <div class="card-body">
+          <div class="pixel-deco" style="filter:drop-shadow(0 0 20px #ef4444)"><i data-lucide="ghost"></i></div>
+          <span class="card-platform">Original Game</span>
+          <h3 class="card-title">NeShumi</h3>
+          <p class="card-sub">— An atmospheric horror game with a microphone</p>
+          <p class="card-desc">
+            A horror game where you're trapped in a crumbling asylum, stalked by a blind but extremely sharp-eared creature. It can hear you through the screen.
+          </p>
+          <ul class="features-list">
+            <li><span class="feat-icon">◆</span> Procedurally generated locations</li>
+            <li><span class="feat-icon">◆</span> Non-linear playthroughs, all down to your luck</li>
+            <li><span class="feat-icon">◆</span> Microphone input feeds the monster's hearing</li>
+            <li><span class="feat-icon">◆</span> Dark corridors, thick atmosphere, and only your flashlight</li>
+            <li><span class="feat-icon">◆</span> Randomized items and exits</li>
+          </ul>
+          <span class="wip-badge"><span class="dot"></span> Early Development</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="team" id="team">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-tag">// the team</span>
+      <h2 class="section-title">Your <span style="color:var(--accent2)">misfits</span></h2>
+      <p style="color:var(--muted);max-width:500px">There aren't many of us. But everyone here puts their heart into it. Or whatever we have instead of one.</p>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card reveal">
+        <div class="team-avatar" style="background:rgba(124,58,237,0.15)"><i data-lucide="gamepad-2"></i></div>
+        <div class="team-name">Krimzonec</div>
+        <div class="team-role">Founder · Lead Coder</div>
+        <div class="team-desc">The ideas guy. Dreams up bosses at 3am, then sits at the keyboard all night to build them.</div>
+      </div>
+
+      <div class="team-card team-card--vacant reveal" style="transition-delay:0.05s">
+        <div class="team-avatar" style="background:rgba(96,165,250,0.08)"><i data-lucide="cog"></i></div>
+        <div class="team-name">???</div>
+        <div class="team-role">Coder</div>
+        <div class="team-desc">Spot's open. If you can write code, even held together with duct tape, we want you.</div>
+        <div class="team-vacant-badge">Hiring</div>
+      </div>
+
+      <div class="team-card team-card--vacant reveal" style="transition-delay:0.10s">
+        <div class="team-avatar" style="background:rgba(245,158,11,0.06)"><i data-lucide="palette"></i></div>
+        <div class="team-name">???</div>
+        <div class="team-role">Art · Sprites</div>
+        <div class="team-desc">Spot's open. Looking for someone who draws pixels with love. Or at least with spite.</div>
+        <div class="team-vacant-badge">Hiring</div>
+      </div>
+
+      <div class="team-card team-card--vacant reveal" style="transition-delay:0.15s">
+        <div class="team-avatar" style="background:rgba(245,158,11,0.06)"><i data-lucide="music-4"></i></div>
+        <div class="team-name">???</div>
+        <div class="team-role">Sound · Music</div>
+        <div class="team-desc">Spot's open. Need someone with ears and a DAW.</div>
+        <div class="team-vacant-badge">Hiring</div>
+      </div>
+
+      <div class="team-card team-card--vacant reveal" style="transition-delay:0.20s">
+        <div class="team-avatar" style="background:rgba(167,139,250,0.06)"><i data-lucide="scroll-text"></i></div>
+        <div class="team-name">???</div>
+        <div class="team-role">Lore · Narrative</div>
+        <div class="team-desc">Spot's open. Looking for someone who loves writing long item descriptions.</div>
+        <div class="team-vacant-badge">Hiring</div>
+      </div>
+
+      <div class="team-card team-card--vacant reveal" style="transition-delay:0.25s">
+        <div class="team-avatar" style="background:rgba(239,68,68,0.06)"><i data-lucide="bug"></i></div>
+        <div class="team-name">???</div>
+        <div class="team-role">Testing</div>
+        <div class="team-desc">Spot's open. Ready to suffer through broken builds and a mountain of spaghetti code? You're our person.</div>
+        <div class="team-vacant-badge">Hiring</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="manifesto" id="manifesto">
+  <div class="container">
+    <div class="divider reveal">
+      <div class="divider-line"></div>
+      <span class="divider-text">// manifesto</span>
+      <div class="divider-line"></div>
+    </div>
+    <p class="manifesto-text reveal">
+      We make <em>what we want to make</em>.<br>
+      <span class="blue">Stardanie</span> because Terraria deserves more.<br>
+      <span class="red">NeShumi</span> because no one else will make it.<br>
+      We're <em>misfits</em>. And we're <span class="purple">proud</span> of it.
+    </p>
+    <div class="reveal" style="margin-top:2rem">
+      <a href="#projects" class="btn btn-primary">See the Projects</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SQ<span>UE</span>AL STUDIO</div>
+  <div class="footer-links">
+    <a href="#">Discord</a>
+    <a href="#">GitHub</a>
+    <a href="#">Twitter</a>
+    <a href="#">Boosty</a>
+  </div>
+  <div class="footer-copy">© 2025–2026 Squeal Studio · Made with love and an unreasonable amount of spaghetti code</div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
