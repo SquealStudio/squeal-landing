@@ -71,7 +71,7 @@ User-agent: MJ12bot
 Disallow: /
 
 User-agent: SquealBot
-Disallow: /*
+Disallow: /
 
 User-agent: *
 Allow: /
