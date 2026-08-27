@@ -3,203 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Squeal Studio</title>
-<meta name="description" content="Squeal Studio is a small team making games and mods. No budget, no managers, no investors. Just heart, bugs, and a few questionable ideas.">
+<title>Squeal Studio — squeal_ai_20m</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@400;500;600;700;800&family=Petrona:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <div class="nav-inner">
-    <div class="logo">Squeal Studio</div>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#team">Team</a></li>
-        <li><a href="#manifesto">Manifesto</a></li>
-      </ul>
-    </nav>
-    <a href="https://discord.gg/2kVpD5VD4" class="nav-cta">Join us</a>
-  </div>
-</header>
-
 <section class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="eyebrow"><span class="pulse"></span>Indie studio · Founded in Russia</div>
-      <h1>A handful of misfits making <em>games</em> and mods</h1>
-      <p>No budget, no managers, no investors. Just heart, bugs, and a few questionable ideas.</p>
+  <div class="bg-dots"></div>
+  <div class="floaters">
+    <span class="floater" style="top:14%; left:6%; font-size:1.4rem;">◇</span>
+    <span class="floater" style="top:64%; left:12%; animation-delay:-3s;">△</span>
+    <span class="floater" style="top:22%; left:44%; animation-delay:-5s; font-size:0.8rem;">◇</span>
+    <span class="floater" style="top:78%; left:38%; animation-delay:-1.5s;">△</span>
+    <span class="floater" style="top:10%; right:8%; animation-delay:-4s;">◇</span>
+    <span class="floater" style="top:70%; right:14%; animation-delay:-2s; font-size:0.9rem;">△</span>
+  </div>
+
+  <nav>
+    <div class="logo">
+      <svg class="mark" viewBox="35 20 70 70" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="squealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8B7CFF" />
+            <stop offset="100%" stop-color="#FF5A2E" />
+          </linearGradient>
+        </defs>
+        <g transform="translate(10, 2)" fill="url(#squealGradient)" stroke="#1a1820" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M 35 45 L 30 25 L 48 35" />
+          <path d="M 85 45 L 90 25 L 72 35" />
+          <path d="M 35 45 C 30 65, 40 85, 60 85 C 80 85, 90 65, 85 45 C 80 32, 40 32, 35 45 Z" />
+          <path d="M 48 62 Q 60 56 72 62 Q 75 72 60 76 Q 45 72 48 62 Z" />
+          <line x1="56" y1="67" x2="56" y2="69" stroke-width="2" />
+          <line x1="64" y1="67" x2="64" y2="69" stroke-width="2" />
+          <polygon points="36,44 56,42 54,54 40,54" fill="#0B0A10" stroke="#1a1820" stroke-width="1" />
+          <polygon points="84,44 64,42 66,54 80,54" fill="#0B0A10" stroke="#1a1820" stroke-width="1" />
+          <line x1="54" y1="44" x2="66" y2="44" stroke="#1a1820" stroke-width="1.5" />
+        </g>
+      </svg>
+      SQUEAL STUDIO
+    </div>
+    <div class="nav-mid">
+      <a href="#models">MODELS</a>
+      <a href="#try">TRY IT</a>
+      <a href="#philosophy">PHILOSOPHY</a>
+    </div>
+    <a href="#try" class="nav-cta">TRY IT</a>
+  </nav>
+
+  <div class="hero-grid">
+    <div class="hero-left fade-up">
+      <span class="eyebrow">20M params · runs at the edge</span>
+      <h1>Small models.<br>Real speech.<br>No cloud.</h1>
+      <p class="lede">Squeal Studio builds Russian-first language models small enough to run on the device already in your pocket — no API key, no data center, no bill that scales with usage.</p>
       <div class="hero-ctas">
-        <a href="#projects" class="btn btn-primary">Our projects</a>
-        <a href="#team" class="btn btn-secondary">Who we are</a>
+        <a href="#try" class="btn primary">Try it in your browser</a>
+        <a href="#models" class="btn ghost">See the models</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><b class="signal">20M</b><span>parameters</span></div>
+        <div class="stat"><b>1,024</b><span>token context</span></div>
+        <div class="stat"><b class="violet">Apache 2.0</b><span>license</span></div>
       </div>
     </div>
-    <div class="hero-panel">
-      <div class="panel-row"><span class="num accent">2</span><span class="lbl">Active projects in the works</span></div>
-      <div class="panel-row"><span class="num accent2">∞</span><span class="lbl">Ideas we'll probably never finish</span></div>
-      <div class="panel-row"><span class="num">0</span><span class="lbl">Investors telling us what to do</span></div>
+
+    <div class="hero-right fade-up">
+      <canvas id="blob-canvas"></canvas>
     </div>
   </div>
 </section>
 
-<section id="about" style="background:var(--bg-2); padding-top:80px;">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">About</span>
-      <h2>We're not a corporation</h2>
+<section class="band" id="philosophy">
+  <div class="band-head fade-up">
+    <span class="eyebrow">why small</span>
+    <h2>The industry keeps scaling up. We're scaling down.</h2>
+  </div>
+  <div class="philosophy-cols fade-up">
+    <div class="ph-card">
+      <span class="num">01 — DESIGN</span>
+      <p>Most labs answer every problem with more parameters. We think that solves <strong>"can it do everything"</strong> while ignoring <strong>"can it run where you need it."</strong></p>
     </div>
-    <div class="about-grid">
-      <div class="pull-quote">"We just sit down and make things. Sometimes it turns out great. Sometimes it's a mess."</div>
-      <div class="about-copy">
-        <p>Squeal Studio is a small team of people with an <strong>unhealthy love for video games</strong>. We don't chase funding, pitch at conferences, or build roadmaps in Notion.</p>
-        <p>It's always honest work. Current projects: <strong>Stardanie</strong> for Terraria, and our own horror game <strong>NeShumi</strong> — both at different stages of development.</p>
-      </div>
+    <div class="ph-card">
+      <span class="num">02 — LANGUAGE</span>
+      <p>squeal_ai_20m uses a 24,000-token vocabulary built around Cyrillic — <strong>Russian first</strong>, the language most "multilingual" models treat as a rounding error.</p>
+    </div>
+    <div class="ph-card">
+      <span class="num">03 — DEPLOYMENT</span>
+      <p>Grouped-query attention keeps inference cheap enough for <strong>phones, Raspberry Pis, and browser tabs</strong> — not just racks in a data center.</p>
     </div>
   </div>
 </section>
 
-<section id="projects" style="padding-top:96px;">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Projects</span>
-      <h2>What we're building</h2>
+<section class="band" id="models">
+  <div class="band-head fade-up">
+    <span class="eyebrow">the lineup</span>
+    <h2>squeal_ai_20m</h2>
+  </div>
+  <div class="model-grid">
+    <div class="model-card fade-up">
+      <div class="mhead"><h3 class="violet">base</h3><span class="pill">pretrained</span></div>
+      <p class="desc">Raw pretraining on Russian web text, education-focused corpora, and Wikipedia — no instruction tuning.</p>
+      <div class="spec"><span class="dim">Architecture</span><span>Qwen2.5-style, GQA</span></div>
+      <div class="spec"><span class="dim">Hidden size</span><span>352</span></div>
+      <div class="spec"><span class="dim">Layers / heads</span><span>8 / 8 (4 kv)</span></div>
+      <div class="spec"><span class="dim">Eval perplexity</span><span>57.85</span></div>
+      <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-base" target="_blank" class="link violet">View on Hugging Face ↗</a>
     </div>
+    <div class="model-card instruct fade-up">
+      <div class="mhead"><h3 class="signal">instruct</h3><span class="pill">chat-tuned</span></div>
+      <p class="desc">Fine-tuned from base to follow instructions and hold a conversation.</p>
+      <div class="spec"><span class="dim">Base model</span><span>squeal_ai_20m-base</span></div>
+      <div class="spec"><span class="dim">Context</span><span>1,024 tokens</span></div>
+      <div class="spec"><span class="dim">Runs on</span><span>CPU, edge, browser</span></div>
+      <div class="spec"><span class="dim">License</span><span>Apache 2.0</span></div>
+      <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-instruct" target="_blank" class="link signal">View on Hugging Face ↗</a>
+    </div>
+  </div>
+</section>
 
-    <div class="project-card">
-      <div class="project-cover moss">
-        <img class="cover-photo" src="stardanie1.png" alt="">
-        <div class="cover-tint"></div>
-        <span class="status-pill">In development</span>
-        <div class="cover-title">
-          <h3>Stardanie</h3>
-          <div class="sub">The expansion Terraria deserves</div>
+<section class="band" id="try">
+  <div class="try-grid">
+    <div class="try-copy fade-up">
+      <span class="eyebrow">zero install</span>
+      <h2 style="margin-top:14px;">Try it in your browser.</h2>
+      <p>Runs entirely client-side through ONNX Runtime Web. No server call, no data leaving your machine — the model downloads once and runs from cache after that.</p>
+    </div>
+    <div class="term fade-up">
+      <div class="term-top">
+        <span>squeal_ai_20m-instruct.onnx</span>
+        <span class="dim">cpu · wasm</span>
+      </div>
+      <div class="term-body">
+        <div class="term-status" id="termStatus"><span class="violet">●</span> idle — press run to load the model</div>
+        <textarea id="promptInput" rows="2" placeholder="Спроси что-нибудь..."></textarea>
+        <div class="term-controls">
+          <button id="runBtn" class="btn-run">run inference</button>
+          <span class="dim mono" style="font-size:0.68rem;">~20M params · int8 · ~20MB</span>
         </div>
+        <div id="outputLine"><span class="blink">▍</span></div>
       </div>
-      <div class="project-body">
-        <div class="tag-row"><span class="tag">Terraria Mod</span></div>
-        <p class="project-desc">A massive mod with new bosses, new ores, mechanics, and biomes.</p>
-        <ul class="feat-grid">
-          <li>Unique bosses with multi-phase fights</li>
-          <li>New ores and progression</li>
-          <li>Hundreds of weapons, armor, accessories</li>
-          <li>Custom biomes with their own ecosystems</li>
-          <li>Deep lore and new mechanics</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="project-card">
-      <div class="project-cover ember">
-        <img class="cover-photo" src="neshumi1.png" alt="">
-        <div class="cover-tint"></div>
-        <span class="status-pill">Early development</span>
-        <div class="cover-title">
-          <h3>NeShumi</h3>
-          <div class="sub">An atmospheric horror game with a microphone</div>
-        </div>
-      </div>
-      <div class="project-body">
-        <div class="tag-row"><span class="tag">Original game</span></div>
-        <p class="project-desc">You're trapped in a crumbling asylum, stalked by a blind but extremely sharp-eared creature. It can hear you through the screen.</p>
-        <ul class="feat-grid">
-          <li>Procedurally generated locations</li>
-          <li>Non-linear playthroughs, all down to luck</li>
-          <li>Microphone input feeds the monster's hearing</li>
-          <li>Dark corridors, thick atmosphere</li>
-          <li>Randomized items and exits</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="team" style="background:var(--bg-2); padding-top:96px;">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Team</span>
-      <h2>Your misfits</h2>
-      <p>There aren't many of us. But everyone here puts their heart into it. Or whatever we have instead of one.</p>
-    </div>
-
-    <div class="team-grid">
-      <div class="member">
-        <div class="avatar filled">
-          <img src="krimzonec1.png" alt="K">
-        </div>
-        <div class="role">Founder · Lead Coder</div>
-        <div class="name">Krimzonec</div>
-        <div class="desc">The ideas guy. Dreams up bosses at 3am, then sits at the keyboard all night to build them.</div>
-      </div>
-      <div class="member">
-        <div class="avatar open">?</div>
-        <div class="role">Coder</div>
-        <div class="name open">Open position</div>
-        <div class="desc">If you can write code, even held together with duct tape, we want you.</div>
-        <span class="badge">Hiring</span>
-      </div>
-      <div class="member">
-        <div class="avatar open">?</div>
-        <div class="role">Art · Sprites</div>
-        <div class="name open">Open position</div>
-        <div class="desc">Looking for someone who draws pixels with love. Or at least with spite.</div>
-        <span class="badge">Hiring</span>
-      </div>
-      <div class="member">
-        <div class="avatar open">?</div>
-        <div class="role">Sound · Music</div>
-        <div class="name open">Open position</div>
-        <div class="desc">Need someone with ears and a DAW.</div>
-        <span class="badge">Hiring</span>
-      </div>
-      <div class="member">
-        <div class="avatar open">?</div>
-        <div class="role">Lore · Narrative</div>
-        <div class="name open">Open position</div>
-        <div class="desc">Looking for someone who loves writing long item descriptions.</div>
-        <span class="badge">Hiring</span>
-      </div>
-      <div class="member">
-        <div class="avatar open">?</div>
-        <div class="role">Testing</div>
-        <div class="name open">Open position</div>
-        <div class="desc">Ready to suffer through broken builds and a mountain of spaghetti code?</div>
-        <span class="badge">Hiring</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="manifesto" style="padding-top:96px;">
-  <div class="wrap">
-    <div class="manifesto-panel">
-      <p>
-        We make <span class="accent">what we want to make.</span>
-        Stardanie because Terraria deserves more.
-        NeShumi because no one else will make it.
-        We're misfits, and we're proud of it.
-      </p>
-      <a href="#projects" class="btn btn-primary">See the projects</a>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-inner">
-    <div class="footer-logo">Squeal Studio</div>
-    <div class="social-links">
-      <a href="https://discord.gg/2kVpD5VD4" target="_blank" rel="noopener">Discord</a>
-      <a href="https://github.com/SquealStudio" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://x.com/SquealStudio" target="_blank" rel="noopener">Twitter</a>
-      <a href="javascript:void(0)">Boosty</a>
-    </div>
-    <div class="footer-note">© 2025–2026 Squeal Studio · Made with love and an unreasonable amount of spaghetti code</div>
+  <span>© 2026 SQUEAL STUDIO — EDGE-FIRST, RU-FOUNDED</span>
+  <div class="footer-links">
+    <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-base" target="_blank">base ↗</a>
+    <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-instruct" target="_blank">instruct ↗</a>
+    <a href="https://huggingface.co/Squeal-Studio" target="_blank">huggingface ↗</a>
   </div>
 </footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
