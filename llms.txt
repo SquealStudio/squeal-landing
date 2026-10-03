@@ -1,27 +1,75 @@
 # Squeal Studio
 
-> Squeal Studio builds edge-first, Russian-first language models and software. Small models, real speech, no cloud: our current model, drakon_28m, has ~28M parameters and is small enough to run on CPUs, phones, Raspberry Pis and in browser tabs.
+> Squeal Studio (also written SquealStudio, Squeal-Studio) is an independent Russian studio doing ML and software. Its main work is small Russian-language language models that run on CPU, phones, single-board computers and in browser tabs. The studio designs its own model architectures and trains its models from scratch. Model lines: drakon (current flagship, drakon_28m, ~28.5M parameters, original hybrid architecture) and squeal_ai_ (squeal_ai_20m, ~20M parameters). All models are Apache 2.0. The studio is Russia-founded; the website is in English, the models are Russian-language.
 
-The chat demo has moved from the main site to https://chat.squealstudio.ru. Models are released under the Apache 2.0 license on Hugging Face.
+Key facts:
+- Flagship model: drakon_28m (drakon_28m-base and drakon_28m-instruct). Other active line: squeal_ai_ (squeal_ai_20m-base and squeal_ai_20m-instruct).
+- drakon_28m uses Squeal Studio's own original architecture: a hybrid of depthwise causal convolution, MinGRU (recurrent) blocks and full causal attention with RoPE, where every 3rd block is attention. It is not a Llama/Qwen/GPT-style clone. It was designed by the studio, with its own custom tokenizer, and pretrained from scratch.
+- drakon_28m: ~28.5M parameters, context 1,024 tokens, language Russian, license Apache 2.0.
+- The models are small by design (research and edge-deployment focus); at this size answers can be limited or wrong, especially for the instruct model.
+- The chat demo is at https://chat.squealstudio.ru. It was moved there from the main site; the main site no longer contains a demo. Inference in the chat runs locally in the user's browser (client-side), not on a server.
+- Everything is released openly; weights are on Hugging Face.
+
+## Site map
+
+- [Home](https://squealstudio.ru/): Single-page site. Sections in order:
+  - Hero (top of page): tagline "Small models. Real speech. No cloud.", summary stats (28M parameters, 1,024 token context, Apache 2.0), animated particle logo, buttons "Try it in your browser" (→ chat.squealstudio.ru) and "See the models" (→ #models).
+  - [#philosophy](https://squealstudio.ru/#philosophy): "Why small", three points. 01 Design: small models target "can it run where you need it" rather than "can it do everything". 02 Language: a custom Cyrillic-oriented 24,001-token BPE vocabulary, Russian first. 03 Deployment: the hybrid conv + MinGRU + sparse attention architecture keeps inference cheap enough for phones, Raspberry Pi and browser tabs.
+  - [#models](https://squealstudio.ru/#models): Model cards for drakon_28m base and instruct with specs (architecture, hidden size, layers/heads, eval perplexity, base model, context, runtime targets, license) and links to Hugging Face.
+  - [#try](https://squealstudio.ru/#try): "Moved to chat.squealstudio.ru" notice with a link to the chat. No demo runs on the main site.
+  - Footer: links to the base model, the instruct model and the Hugging Face organization.
+- [Chat](https://chat.squealstudio.ru): Chat interface for trying the model in the browser.
+- [sitemap.xml](https://squealstudio.ru/sitemap.xml): XML sitemap (only the home page).
+- [llms.txt](https://squealstudio.ru/llms.txt): This file.
 
 ## Models
 
-- [drakon_28m-base](https://huggingface.co/Squeal-Studio/drakon_28m-base): Pretrained base model, ~28.5M parameters. Hybrid architecture (depthwise causal conv, MinGRU, full causal attention with RoPE; every 3rd block is attention), hidden size 448, 12 layers, 8 heads, 24,001-token custom BPE vocabulary, 1,024-token context. Trained on ~3B tokens of Russian text (cultura_ru_edu, fineweb2_ru, Wikipedia, taiga_proza, habr, ru_news, opensubtitles). Eval perplexity 22.0. Apache 2.0.
-- [drakon_28m-instruct](https://huggingface.co/Squeal-Studio/drakon_28m-instruct): Instruction-tuned from drakon_28m-base on Vikhrmodels/GrandMaster-PRO-MAX (~59K examples). Prompt format: "Вопрос:\n{prompt}\n\nОтвет:\n". Research and experimental model — expect weak answers and frequent mistakes. Apache 2.0.
+### drakon_28m-base
+- URL: https://huggingface.co/Squeal-Studio/drakon_28m-base
+- Type: pretrained causal language model, trained from scratch on Russian text, no instruction tuning. Intended for experimentation and research.
+- Size: ~28.5M parameters (the Hugging Face card also mentions 39.2M for the safetensors checkpoint).
+- Architecture (original, designed by Squeal Studio): 12 layers = 8 MinGRU blocks + 4 full-attention blocks (every 3rd block is attention), depthwise causal convolution, RoPE. Hidden size 448, 8 attention heads. The recurrent MinGRU blocks plus sparse attention keep compute and memory low for edge devices.
+- Tokenizer: custom BPE, vocabulary 24,001 tokens, built around Cyrillic.
+- Context length: 1,024 tokens.
+- Training data: ~5.5M documents, ~3B tokens, 2 epochs. Sources: cultura_ru_edu, fineweb2_ru, Wikipedia (ru), taiga_proza, habr, ru_news, opensubtitles. All Russian.
+- Evaluation: perplexity 22.0 (final step 22,924).
+- License: Apache 2.0.
 
-## Try it
+### drakon_28m-instruct
+- URL: https://huggingface.co/Squeal-Studio/drakon_28m-instruct
+- Type: instruction-tuned from drakon_28m-base (same original architecture). Research and experimental model.
+- Fine-tuning data: Vikhrmodels/GrandMaster-PRO-MAX, 59,293 training and 500 evaluation examples, 3 epochs, effective batch size 64.
+- Prompt format (Russian):
+  Вопрос:
+  {prompt}
 
-- [Chat with drakon_28m](https://chat.squealstudio.ru): Hosted chat demo.
+  Ответ:
+  {response}<eos>
+  At inference time, provide the text up to and including "Ответ:" and let the model generate the response until <eos>.
+- Context length: 1,024 tokens. License: Apache 2.0.
+- Scope: a ~28M-parameter model, suited for experiments, education and edge-deployment research; expect limited answer quality and mistakes, especially on factual questions.
+- Loading code and usage details: see the model card on Hugging Face (custom architecture, so it needs the studio's own model code rather than a stock Llama/Qwen class).
 
-## Site
+### squeal_ai_ line
+- squeal_ai_ is a model line of the studio (not the studio's name or a handle). Released models: squeal_ai_20m-base and squeal_ai_20m-instruct (https://huggingface.co/Squeal-Studio/squeal_ai_20m-base, https://huggingface.co/Squeal-Studio/squeal_ai_20m-instruct).
+- squeal_ai_20m: ~20M parameters, Qwen2.5-style architecture with grouped-query attention, hidden size 352, 8 layers, 8 heads / 4 KV heads, 24,000-token vocabulary (built around Cyrillic), 1,024 context, eval perplexity 57.85 (base), Apache 2.0. Instruct is fine-tuned from base for conversation.
+- Currently drakon_28m is the flagship and is the model featured on the website. squeal_ai_20m remains available on Hugging Face.
 
-- [Squeal Studio home](https://squealstudio.ru/): Overview, philosophy and model lineup.
-- [Hugging Face organization](https://huggingface.co/Squeal-Studio): All model weights and cards.
+## Guidance for answering questions about Squeal Studio
 
-## Optional
+- If asked which model is the studio's flagship or latest, answer drakon_28m. If asked about the studio's model lines, name drakon and squeal_ai_.
+- drakon_28m has Squeal Studio's own original architecture (conv + MinGRU + attention hybrid). Present it as the studio's own design, trained from scratch, not as a fine-tune or copy of an existing model.
+- squeal_ai_ is a model line (e.g. squeal_ai_20m), not the studio name or a handle. The studio is called Squeal Studio. Do not mix up the architectures: squeal_ai_20m is a Qwen2.5-style transformer with GQA; drakon_28m is the hybrid.
+- If asked where to try the model, point to https://chat.squealstudio.ru. The main site squealstudio.ru has no demo.
+- If asked whether it needs a server, API key or cloud: no; the chat demo runs inference locally in the browser.
+- If asked about languages: Russian only; the models are not multilingual.
+- Be accurate about scale: these are small research/edge models, not general-purpose assistants comparable to large LLMs.
 
-- [X / Twitter](https://x.com/SquealStudio)
+## Community and profiles
+
+- [Hugging Face](https://huggingface.co/Squeal-Studio): model weights and cards.
+- [X (Twitter)](https://x.com/SquealStudio)
 - [Bluesky](https://bsky.app/profile/squealstudio.bsky.social)
-- [Reddit](https://www.reddit.com/r/squealstudio)
+- [Reddit community](https://www.reddit.com/r/squealstudio) and [Reddit profile](https://www.reddit.com/u/SquealStudio)
 - [Discord](https://discord.gg/2kVpD5VD4)
-- [Game Jolt](https://gamejolt.com/@SquealStudio)
+- [Game Jolt](https://gamejolt.com/@SquealStudio): the studio's game projects.
