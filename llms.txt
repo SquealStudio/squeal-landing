@@ -1,0 +1,27 @@
+# Squeal Studio
+
+> Squeal Studio builds edge-first, Russian-first language models and software. Small models, real speech, no cloud: our current model, drakon_28m, has ~28M parameters and is small enough to run on CPUs, phones, Raspberry Pis and in browser tabs.
+
+The chat demo has moved from the main site to https://chat.squealstudio.ru. Models are released under the Apache 2.0 license on Hugging Face.
+
+## Models
+
+- [drakon_28m-base](https://huggingface.co/Squeal-Studio/drakon_28m-base): Pretrained base model, ~28.5M parameters. Hybrid architecture (depthwise causal conv, MinGRU, full causal attention with RoPE; every 3rd block is attention), hidden size 448, 12 layers, 8 heads, 24,001-token custom BPE vocabulary, 1,024-token context. Trained on ~3B tokens of Russian text (cultura_ru_edu, fineweb2_ru, Wikipedia, taiga_proza, habr, ru_news, opensubtitles). Eval perplexity 22.0. Apache 2.0.
+- [drakon_28m-instruct](https://huggingface.co/Squeal-Studio/drakon_28m-instruct): Instruction-tuned from drakon_28m-base on Vikhrmodels/GrandMaster-PRO-MAX (~59K examples). Prompt format: "Вопрос:\n{prompt}\n\nОтвет:\n". Research and experimental model — expect weak answers and frequent mistakes. Apache 2.0.
+
+## Try it
+
+- [Chat with drakon_28m](https://chat.squealstudio.ru): Hosted chat demo.
+
+## Site
+
+- [Squeal Studio home](https://squealstudio.ru/): Overview, philosophy and model lineup.
+- [Hugging Face organization](https://huggingface.co/Squeal-Studio): All model weights and cards.
+
+## Optional
+
+- [X / Twitter](https://x.com/SquealStudio)
+- [Bluesky](https://bsky.app/profile/squealstudio.bsky.social)
+- [Reddit](https://www.reddit.com/r/squealstudio)
+- [Discord](https://discord.gg/2kVpD5VD4)
+- [Game Jolt](https://gamejolt.com/@SquealStudio)

@@ -3,6 +3,45 @@ const ctx = canvas.getContext('2d');
 let W, H, DPR;
 let particles = [];
 
+// Logo: 18 hexagons. Each entry is [x, y, bright] where (x, y) is the top vertex
+// of a pointy-top hexagon in a 504x449 viewBox; bright=1 is a white hexagon.
+const LOGO_W = 504, LOGO_H = 449;
+const HEX_HW = 48.497, HEX_Q1 = 27.75, HEX_Q3 = 83.25, HEX_H = 111;
+const HEXES = [
+    [350,338,0],
+    [399,254,0],
+    [301,254,0],
+    [203,254,0],
+    [252,169,0],
+    [203,84,0],
+    [105,84,0],
+    [56,0,0],
+    [301,84,0],
+    [350,169,1],
+    [252,338,1],
+    [154,169,1],
+    [56,169,1],
+    [448,169,1],
+    [399,84,0],
+    [448,0,0],
+    [154,338,0],
+    [105,254,0]
+];
+
+function hexVerts(x, y){
+    return [[x,y],[x+HEX_HW,y+HEX_Q1],[x+HEX_HW,y+HEX_Q3],[x,y+HEX_H],[x-HEX_HW,y+HEX_Q3],[x-HEX_HW,y+HEX_Q1]];
+}
+
+function pointInHex(px, py, x, y){
+    // convex polygon test
+    const v = hexVerts(x, y);
+    for (let i=0;i<6;i++){
+        const a = v[i], b = v[(i+1)%6];
+        if ((b[0]-a[0])*(py-a[1]) - (b[1]-a[1])*(px-a[0]) < 0) return false;
+    }
+    return true;
+}
+
 function resize(){
     DPR = Math.min(window.devicePixelRatio || 1, 2);
     const rect = canvas.getBoundingClientRect();
@@ -14,63 +53,46 @@ function resize(){
 
 function buildParticles(){
     particles = [];
-    const cx = W/2, cy = H/2;
-    const count = window.innerWidth < 767 ? 1600 : 3200;
+    const count = window.innerWidth < 767 ? 2400 : 5200;
+    const scale = Math.min(W / LOGO_W, H / LOGO_H) * 0.94;
+    const offX = (W - LOGO_W * scale) / 2;
+    const offY = (H - LOGO_H * scale) / 2;
+    const perHex = Math.round(count / HEXES.length);
 
-    const svgNS = "http://www.w3.org/2000/svg";
-    const tempSvg = document.createElementNS(svgNS, "svg");
-    const tempPath = document.createElementNS(svgNS, "path");
-    tempPath.setAttribute("d", `
-    M 84,38
-    C 84,26 74,20 60,20
-    C 46,20 36,26 36,38
-    C 36,52 52,54 52,62
-    C 52,68 44,72 36,72
-    M 36,82
-    C 36,94 46,100 60,100
-    C 74,100 84,94 84,82
-    C 84,68 68,66 68,58
-    C 68,52 76,48 84,48
-    `);
-    tempSvg.appendChild(tempPath);
-    tempSvg.style.position = "absolute";
-    tempSvg.style.width = "0"; tempSvg.style.height = "0"; tempSvg.style.overflow = "hidden";
-    document.body.appendChild(tempSvg);
-
-    const totalLen = tempPath.getTotalLength();
-    const strokeHalf = 7;
-    const logoScale = (Math.min(W,H) * 0.82) / 120;
-    const offsetX = 60, offsetY = 60;
-
-    for(let i=0;i<count;i++){
-        const len = Math.random() * totalLen;
-        const pt = tempPath.getPointAtLength(len);
-        const jitter = (Math.random()-0.5) * strokeHalf * 1.7;
-        const lenB = Math.min(totalLen, Math.max(0, len + 0.6));
-        const ptB = tempPath.getPointAtLength(lenB);
-        const dx = ptB.x - pt.x, dy = ptB.y - pt.y;
-        const dLen = Math.sqrt(dx*dx+dy*dy) || 1;
-        const nx = -dy/dLen, ny = dx/dLen;
-
-        const localX = pt.x + nx*jitter - offsetX;
-        const localY = pt.y + ny*jitter - offsetY;
-
-        const px = cx + localX * logoScale;
-        const py = cy + localY * logoScale;
-
-        const isEdge = Math.abs(jitter) > strokeHalf*0.55;
-
-        particles.push({
-            baseX: px, baseY: py,
-            x: px, y: py,
-            seed: Math.random()*1000,
-                       speed: 0.4 + Math.random()*0.6,
-                       size: isEdge ? (1.6+Math.random()*1.3) : (1.2+Math.random()*0.9),
-                       warm: Math.random() < (isEdge ? 0.5 : 0.2)
-        });
-    }
-
-    document.body.removeChild(tempSvg);
+    HEXES.forEach(([hx, hy, bright]) => {
+        const v = hexVerts(hx, hy);
+        const n = bright ? Math.round(perHex * 1.25) : perHex;
+        for (let i=0;i<n;i++){
+            let lx, ly, isEdge = false;
+            if (Math.random() < 0.28){
+                // dense rim so each hexagon keeps a crisp outline
+                const k = Math.floor(Math.random()*6);
+                const a = v[k], b = v[(k+1)%6];
+                const t = Math.random();
+                const cx = hx, cy = hy + HEX_H/2;
+                const inset = Math.random() * 0.07;
+                lx = a[0] + (b[0]-a[0])*t; ly = a[1] + (b[1]-a[1])*t;
+                lx += (cx - lx) * inset; ly += (cy - ly) * inset;
+                isEdge = true;
+            } else {
+                do {
+                    lx = hx - HEX_HW + Math.random()*HEX_HW*2;
+                    ly = hy + Math.random()*HEX_H;
+                } while (!pointInHex(lx, ly, hx, hy));
+            }
+            const px = offX + lx * scale;
+            const py = offY + ly * scale;
+            particles.push({
+                baseX: px, baseY: py,
+                x: px, y: py,
+                seed: Math.random()*1000,
+                speed: 0.4 + Math.random()*0.6,
+                size: isEdge ? (1.5+Math.random()*1.2) : (1.1+Math.random()*0.9),
+                bright: !!bright,
+                edge: isEdge
+            });
+        }
+    });
 }
 
 let mouseX = -9999, mouseY = -9999;
@@ -92,8 +114,8 @@ function draw(){
     ctx.clearRect(0,0,W,H);
 
     particles.forEach(p=>{
-        const wobbleX = Math.sin(t*p.speed + p.seed) * 3;
-        const wobbleY = Math.cos(t*p.speed*0.8 + p.seed*1.3) * 3;
+        const wobbleX = Math.sin(t*p.speed + p.seed) * 2.2;
+        const wobbleY = Math.cos(t*p.speed*0.8 + p.seed*1.3) * 2.2;
 
         const dx = p.baseX - mouseX, dy = p.baseY - mouseY;
         const dist = Math.sqrt(dx*dx+dy*dy);
@@ -111,9 +133,13 @@ function draw(){
 
         ctx.beginPath();
         ctx.arc(x, y, p.size, 0, Math.PI*2);
-        ctx.fillStyle = p.warm
-        ? `rgba(0,242,254,${alpha.toFixed(2)})`
-        : `rgba(79,172,254,${(alpha*0.85).toFixed(2)})`;
+        if (p.bright){
+            ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(2)})`;
+        } else {
+            // dark hexagons (#282828) are lifted to grey so particles stay visible on the dark page
+            const a = alpha * (p.edge ? 0.55 : 0.4);
+            ctx.fillStyle = `rgba(150,150,150,${a.toFixed(2)})`;
+        }
         ctx.fill();
     });
 
@@ -130,92 +156,3 @@ const io = new IntersectionObserver((entries)=>{
     });
 }, {threshold:0.15});
 document.querySelectorAll('.fade-up').forEach(el=>io.observe(el));
-
-const runBtn = document.getElementById('runBtn');
-const outputLine = document.getElementById('outputLine');
-const promptInput = document.getElementById('promptInput');
-const termStatus = document.getElementById('termStatus');
-
-const MODEL_ID = 'Squeal-Studio/squeal_ai_20m-instruct';
-
-let generatorPromise = null;
-let isBusy = false;
-
-function setStatus(dotClass, text){
-    termStatus.innerHTML = `<span class="${dotClass}">●</span> ${text}`;
-}
-
-async function getGenerator(){
-    if (generatorPromise) return generatorPromise;
-
-    setStatus('signal', 'loading model weights (onnx, int8, ~20MB)…');
-
-    generatorPromise = import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.0.0')
-    .then(({ pipeline }) => pipeline('text-generation', MODEL_ID, {
-        dtype: 'q8',
-        progress_callback: (p) => {
-            if (p.status === 'progress' && p.file && p.file.endsWith('.onnx')) {
-                const pct = p.total ? Math.round((p.loaded / p.total) * 100) : null;
-                setStatus('signal', `downloading ${p.file}${pct !== null ? ' — ' + pct + '%' : ''}…`);
-            }
-        }
-    }))
-    .then((gen) => {
-        setStatus('violet', 'model ready');
-        return gen;
-    })
-    .catch((err) => {
-        generatorPromise = null;
-        setStatus('signal', `failed to load model: ${err.message || err}`);
-        throw err;
-    });
-
-    return generatorPromise;
-}
-
-async function runInference(){
-    if (isBusy) return;
-    const prompt = promptInput.value.trim();
-    if (!prompt){
-        setStatus('signal', 'type a prompt first');
-        return;
-    }
-
-    isBusy = true;
-    runBtn.disabled = true;
-    outputLine.innerHTML = '<span class="blink">▍</span>';
-
-    try{
-        const generator = await getGenerator();
-        setStatus('violet', 'generating…');
-
-        const formattedPrompt = `User: ${prompt}\nBot:`;
-
-        const result = await generator(formattedPrompt, {
-            max_new_tokens: 120,
-            repetition_penalty: 1.2,
-            no_repeat_ngram_size: 3,
-            temperature: 0.7,
-            do_sample: true
-        });
-
-        const fullText = result[0].generated_text;
-        const reply = fullText.split('Bot:').pop().trim();
-
-        outputLine.textContent = reply || '(empty response)';
-        setStatus('violet', 'done');
-    } catch(err){
-        outputLine.innerHTML = `<span class="dim">error: ${(err.message || err)}</span>`;
-    } finally{
-        isBusy = false;
-        runBtn.disabled = false;
-    }
-}
-
-runBtn.addEventListener('click', runInference);
-promptInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey){
-        e.preventDefault();
-        runInference();
-    }
-});

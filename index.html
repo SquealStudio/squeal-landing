@@ -4,8 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Squeal Studio | ML, Software & Game Development</title>
-<meta name="description" content="Squeal Studio builds edge-first Russian language models and software. Small models, real speech, no cloud — 20M-parameter models that run at the edge.">
+<meta name="description" content="Squeal Studio builds edge-first Russian language models and software. Small models, real speech, no cloud — 28M-parameter models that run at the edge.">
 <meta name="robots" content="index, follow">
+<link rel="alternate" type="text/plain" href="https://squealstudio.ru/llms.txt" title="llms.txt">
 <link rel="canonical" href="https://squealstudio.ru/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Squeal Studio">
@@ -80,30 +81,30 @@
     </div>
     <div class="nav-mid">
       <a href="#models">MODELS</a>
-      <a href="#try">TRY IT</a>
+      <a href="https://chat.squealstudio.ru">CHAT</a>
       <a href="#philosophy">PHILOSOPHY</a>
     </div>
-    <a href="#try" class="nav-cta">TRY IT</a>
+    <a href="https://chat.squealstudio.ru" class="nav-cta">TRY IT</a>
   </nav>
 
   <div class="hero-grid">
     <div class="hero-left fade-up">
-      <span class="eyebrow">20M params · runs at the edge</span>
+      <span class="eyebrow">28M params · runs at the edge</span>
       <h1>Small models.<br>Real speech.<br>No cloud.</h1>
       <p class="lede">Squeal Studio builds Russian-first language models small enough to run on the device already in your pocket — no API key, no data center, no bill that scales with usage.</p>
       <div class="hero-ctas">
-        <a href="#try" class="btn primary">Try it in your browser</a>
+        <a href="https://chat.squealstudio.ru" class="btn primary">Try it in your browser</a>
         <a href="#models" class="btn ghost">See the models</a>
       </div>
       <div class="hero-stats">
-        <div class="stat"><b class="signal">20M</b><span>parameters</span></div>
+        <div class="stat"><b class="signal">28M</b><span>parameters</span></div>
         <div class="stat"><b>1,024</b><span>token context</span></div>
         <div class="stat"><b class="violet">Apache 2.0</b><span>license</span></div>
       </div>
     </div>
 
     <div class="hero-right fade-up">
-      <canvas id="blob-canvas"></canvas>
+      <canvas id="blob-canvas" role="img" aria-label="Squeal Studio logo"></canvas>
     </div>
   </div>
 </section>
@@ -120,11 +121,11 @@
     </div>
     <div class="ph-card">
       <span class="num">02 — LANGUAGE</span>
-      <p>squeal_ai_20m uses a 24,000-token vocabulary built around Cyrillic — <strong>Russian first</strong>, the language most "multilingual" models treat as a rounding error.</p>
+      <p>drakon_28m uses a 24,001-token custom BPE vocabulary built around Cyrillic — <strong>Russian first</strong>, the language most "multilingual" models treat as a rounding error.</p>
     </div>
     <div class="ph-card">
       <span class="num">03 — DEPLOYMENT</span>
-      <p>Grouped-query attention keeps inference cheap enough for <strong>phones, Raspberry Pis, and browser tabs</strong> — not just racks in a data center.</p>
+      <p>A hybrid of <strong>depthwise conv, MinGRU and sparse attention</strong> keeps inference cheap enough for phones, Raspberry Pis, and browser tabs — not just racks in a data center.</p>
     </div>
   </div>
 </section>
@@ -132,26 +133,26 @@
 <section class="band" id="models">
   <div class="band-head fade-up">
     <span class="eyebrow">the lineup</span>
-    <h2>squeal_ai_20m</h2>
+    <h2>drakon_28m</h2>
   </div>
   <div class="model-grid">
     <div class="model-card fade-up">
       <div class="mhead"><h3 class="violet">base</h3><span class="pill">pretrained</span></div>
-      <p class="desc">Raw pretraining on Russian web text, education-focused corpora, and Wikipedia — no instruction tuning.</p>
-      <div class="spec"><span class="dim">Architecture</span><span>Qwen2.5-style, GQA</span></div>
-      <div class="spec"><span class="dim">Hidden size</span><span>352</span></div>
-      <div class="spec"><span class="dim">Layers / heads</span><span>8 / 8 (4 kv)</span></div>
-      <div class="spec"><span class="dim">Eval perplexity</span><span>57.85</span></div>
-      <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-base" target="_blank" class="link violet">View on Hugging Face ↗</a>
+      <p class="desc">Raw pretraining on ~3B tokens of Russian text — education corpora, FineWeb2, Wikipedia, Habr, news and more — no instruction tuning.</p>
+      <div class="spec"><span class="dim">Architecture</span><span>Conv + MinGRU + attention</span></div>
+      <div class="spec"><span class="dim">Hidden size</span><span>448</span></div>
+      <div class="spec"><span class="dim">Layers / heads</span><span>12 / 8 (every 3rd = attn)</span></div>
+      <div class="spec"><span class="dim">Eval perplexity</span><span>22.0</span></div>
+      <a href="https://huggingface.co/Squeal-Studio/drakon_28m-base" target="_blank" class="link violet">View on Hugging Face ↗</a>
     </div>
     <div class="model-card instruct fade-up">
       <div class="mhead"><h3 class="signal">instruct</h3><span class="pill">chat-tuned</span></div>
-      <p class="desc">Fine-tuned from base to follow instructions and hold a conversation.</p>
-      <div class="spec"><span class="dim">Base model</span><span>squeal_ai_20m-base</span></div>
+      <p class="desc">Fine-tuned from base on ~59K Russian instruction examples to follow instructions and hold a conversation. Experimental — expect mistakes.</p>
+      <div class="spec"><span class="dim">Base model</span><span>drakon_28m-base</span></div>
       <div class="spec"><span class="dim">Context</span><span>1,024 tokens</span></div>
       <div class="spec"><span class="dim">Runs on</span><span>CPU, edge, browser</span></div>
       <div class="spec"><span class="dim">License</span><span>Apache 2.0</span></div>
-      <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-instruct" target="_blank" class="link signal">View on Hugging Face ↗</a>
+      <a href="https://huggingface.co/Squeal-Studio/drakon_28m-instruct" target="_blank" class="link signal">View on Hugging Face ↗</a>
     </div>
   </div>
 </section>
@@ -159,23 +160,21 @@
 <section class="band" id="try">
   <div class="try-grid">
     <div class="try-copy fade-up">
-      <span class="eyebrow">zero install</span>
-      <h2 style="margin-top:14px;">Try it in your browser.</h2>
-      <p>Runs entirely client-side through ONNX Runtime Web. No server call, no data leaving your machine — the model downloads once and runs from cache after that.</p>
+      <span class="eyebrow">moved</span>
+      <h2 style="margin-top:14px;">Moved to chat.squealstudio.ru</h2>
+      <p>The in-browser demo no longer lives on this page. Chat with drakon_28m on its own home instead.</p>
+      <div class="hero-ctas" style="margin-top:24px;">
+        <a href="https://chat.squealstudio.ru" class="btn primary">Open chat.squealstudio.ru ↗</a>
+      </div>
     </div>
     <div class="term fade-up">
       <div class="term-top">
-        <span>squeal_ai_20m-instruct.onnx</span>
-        <span class="dim">cpu · wasm</span>
+        <span>drakon_28m-instruct</span>
+        <span class="dim">chat.squealstudio.ru</span>
       </div>
       <div class="term-body">
-        <div class="term-status" id="termStatus"><span class="violet">●</span> idle — press run to load the model</div>
-        <textarea id="promptInput" rows="2" placeholder="Спроси что-нибудь..."></textarea>
-        <div class="term-controls">
-          <button id="runBtn" class="btn-run">run inference</button>
-          <span class="dim mono" style="font-size:0.68rem;">~20M params · int8 · ~20MB</span>
-        </div>
-        <div id="outputLine"><span class="blink">▍</span></div>
+        <div class="term-status"><span class="violet">●</span> moved — demo mode removed from this site</div>
+        <div id="outputLine">→ <a href="https://chat.squealstudio.ru" class="violet">chat.squealstudio.ru</a></div>
       </div>
     </div>
   </div>
@@ -184,8 +183,8 @@
 <footer>
   <span>© 2026 SQUEAL STUDIO — EDGE-FIRST, RU-FOUNDED</span>
   <div class="footer-links">
-    <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-base" target="_blank">base ↗</a>
-    <a href="https://huggingface.co/Squeal-Studio/squeal_ai_20m-instruct" target="_blank">instruct ↗</a>
+    <a href="https://huggingface.co/Squeal-Studio/drakon_28m-base" target="_blank">base ↗</a>
+    <a href="https://huggingface.co/Squeal-Studio/drakon_28m-instruct" target="_blank">instruct ↗</a>
     <a href="https://huggingface.co/Squeal-Studio" target="_blank">huggingface ↗</a>
   </div>
 </footer>
